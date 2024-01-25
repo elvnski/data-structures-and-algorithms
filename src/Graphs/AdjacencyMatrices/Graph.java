@@ -1,13 +1,15 @@
 package Graphs.AdjacencyMatrices;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Graph {
 
     ArrayList<Node> nodes;
     int[][] matrix;
 
-    Graph(int size){
+    public Graph(int size){
 
         nodes = new ArrayList<>();
         matrix = new int[size][size];
@@ -46,5 +48,60 @@ public class Graph {
         }
 
     }
+
+
+    public void depthFirstSearch(int source){
+
+        boolean[] visited = new boolean[matrix.length];
+
+        dfsHelper(source, visited);
+    }
+
+    private void dfsHelper(int source, boolean[] visited) {
+
+        if (visited[source]){
+            return;
+        }
+        else {
+            visited[source] = true;
+            System.out.println(nodes.get(source).data + " = visited");
+        }
+
+        //Looping through the rows
+        for (int i = 0; i < matrix[source].length; i++){
+
+            if (matrix[source][i] == 1){
+                dfsHelper(i, visited);
+            }
+        }
+
+        return;
+    }
+
+
+    public void breadthFirstSearch(int source){
+
+        Queue<Integer> queue = new LinkedList<>();
+        boolean[] visited = new boolean[matrix.length];
+
+        queue.add(source);
+        visited[source] = true;
+
+        while (!queue.isEmpty()){
+
+            source = queue.poll();
+            System.out.println(nodes.get(source).data + " = visited");
+
+            for (int i = 0; i < matrix[source].length; i++){
+
+                if (matrix[source][i] == 1 && !visited[i]){
+                    queue.offer(i);
+                    visited[i] = true;
+                }
+            }
+        }
+
+    }
+
 
 }

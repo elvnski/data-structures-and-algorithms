@@ -1,6 +1,6 @@
 package Graphs.AdjacencyMatrices;
 
-public class Main {
+public class Intro {
 
     public static void main(String[] args) {
 
